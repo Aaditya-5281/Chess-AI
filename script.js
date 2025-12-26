@@ -290,6 +290,27 @@ var cfg = {
     onDrop: onDrop,
     onMouseoutSquare: onMouseoutSquare,
     onMouseoverSquare: onMouseoverSquare,
-    onSnapEnd: onSnapEnd
+    onSnapEnd: onSnapEnd,
+    touchTimeOut: 200
 };
 board = ChessBoard('board', cfg);
+
+// Ensure touch events work properly on mobile
+$(document).ready(function() {
+    // Prevent default touch behaviors that might interfere
+    var boardElement = $('#board');
+    
+    // Allow touch dragging - chessboard.js handles this, but we ensure CSS doesn't block it
+    boardElement.css({
+        'touch-action': 'none',
+        '-webkit-touch-callout': 'none',
+        '-webkit-user-select': 'none',
+        'user-select': 'none'
+    });
+    
+    // Ensure pieces are draggable
+    $('#board img').css({
+        'touch-action': 'none',
+        'pointer-events': 'auto'
+    });
+});
